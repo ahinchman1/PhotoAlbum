@@ -3,12 +3,7 @@ package application;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
@@ -16,7 +11,6 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -32,6 +26,11 @@ class Album {
 
 public class Main extends Application {
 	
+	/*
+	 * start() starts the javafx application, loads the data and displays
+	 * the images
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override
 	public void start(Stage primaryStage) {
         primaryStage.setTitle("Photo Album");
@@ -66,7 +65,6 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 300, 250));
         primaryStage.show();
 	}
-	
 	
 	/**
 	 * loadData() reads the json file through Java API
@@ -108,7 +106,9 @@ public class Main extends Application {
 	}
 	
 
-		  
+	/**
+	 * main() launches application
+	 */  
 	public static void main(String[] args) {
 		launch(args);
 	}
