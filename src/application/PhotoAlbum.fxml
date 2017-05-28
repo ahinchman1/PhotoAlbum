@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+         <image>
+            <Image url="http://icons.iconarchive.com/icons/vincentburton/diaguita-ceramic-bowl/128/Diaguita-Ceramic-Bowl-4-icon.png" />
+          </image>
+</AnchorPane>
+

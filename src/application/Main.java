@@ -10,9 +10,17 @@ import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.ImageViewBuilder;
 import javafx.scene.layout.StackPane;
 
 class Album {
@@ -50,7 +58,26 @@ public class Main extends Application {
 					Photo[] photo = gson.fromJson(json, Photo[].class);
 					
 					String gsonJson = gson.toJson(photo);
-					System.out.print(gsonJson);
+					System.out.println(gsonJson);
+				
+					// load urls on to images in javafx
+					String[] imageSource = new String[photo.length];
+					for (int i = 0; i < photo.length; i++) {
+						imageSource[i] = photo[i].getUrl();
+					}
+			         
+					System.out.println(imageSource[0]);
+					
+					//display image
+					StackPane sp = new StackPane();
+					Image image = new Image(imageSource[0]);
+					ImageView imgView = new ImageView(image);
+					sp.getChildren().add(imgView);
+			   
+			        Scene scene = new Scene(sp);
+			        primaryStage.setScene(scene);
+			        primaryStage.show();
+					System.out.println("display image");
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -73,9 +100,6 @@ public class Main extends Application {
 	 */
 	public String loadData() throws Exception {
 		String jsonUrl = readUrl("https://jsonplaceholder.typicode.com/photos");
-		System.out.println(jsonUrl);
-		
-		
 		
 		return jsonUrl;
 	}
@@ -105,7 +129,6 @@ public class Main extends Application {
 	    }
 	}
 	
-
 	/**
 	 * main() launches application
 	 */  
