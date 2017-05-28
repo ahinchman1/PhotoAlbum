@@ -3,34 +3,60 @@ package application;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 
+class Album {
+	String albumId;
+	String id;
+	String title;
+	String url;
+	String thumbNailUrl;
+	List<Photo> photos;
+}
 
 public class Main extends Application {
+	
 	@Override
 	public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Photo Album");
         Button btn = new Button();
-        btn.setText("Say 'Hello World'");
+        btn.setText("Say 'Display Images!'");
         btn.setOnAction(new EventHandler<ActionEvent>() {
  
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Display Images!");
                 try {
-					loadData();
+					String json = loadData();
+				
+					System.out.println("read data");
+					
+					Gson gson = new Gson();
+					Photo[] photo = gson.fromJson(json, Photo[].class);
+					
+					String gsonJson = gson.toJson(photo);
+					System.out.print(gsonJson);
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-                
                 //displayImage();
             }
         });
@@ -41,14 +67,28 @@ public class Main extends Application {
         primaryStage.show();
 	}
 	
+	
+	/**
+	 * loadData() reads the json file through Java API
+	 * @return String
+	 * @throws Exception
+	 */
 	public String loadData() throws Exception {
 		String jsonUrl = readUrl("https://jsonplaceholder.typicode.com/photos");
 		System.out.println(jsonUrl);
 		
+		
+		
 		return jsonUrl;
-	
 	}
 	
+	/**
+	 * readUrl() takes the string input from loadData() and translates 
+	 * the string into readable String output
+	 * @param urlString
+	 * @return String
+	 * @throws Exception
+	 */
 	private static String readUrl(String urlString) throws Exception {
 	    BufferedReader reader = null;
 	    try {
