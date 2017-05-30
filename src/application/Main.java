@@ -8,6 +8,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -70,7 +71,7 @@ public class Main extends Application {
 					
 					//display image
 					StackPane sp = new StackPane();
-					Image image = new Image(imageSource[0]);
+					Image image = new Image("https://placeholdit.imgix.net/~text?txtsize=56&bg=92c952&txt=600%C3%97600&w=600&h=600");
 					ImageView imgView = new ImageView(image);
 					sp.getChildren().add(imgView);
 			   
@@ -82,6 +83,7 @@ public class Main extends Application {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					reportAndLogException(e);
 				}
                 //displayImage();
             }
@@ -92,6 +94,15 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 300, 250));
         primaryStage.show();
 	}
+	
+	 public void reportAndLogException(final Throwable t)
+	  {
+	    Platform.runLater(new Runnable() {
+	      @Override public void run() {
+	        //Update UI here     
+	      }
+	    });
+	  }
 	
 	/**
 	 * loadData() reads the json file through Java API
