@@ -1,27 +1,31 @@
 package application;
 	
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import com.google.gson.Gson;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.ImageViewBuilder;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 
 class Album {
@@ -67,11 +71,12 @@ public class Main extends Application {
 						imageSource[i] = photo[i].getUrl();
 					}
 			         
-					System.out.println(imageSource[0]);
+					System.out.println(imageSource[1]);
 					
 					//display image
+					//display image
 					StackPane sp = new StackPane();
-					Image image = new Image("https://placeholdit.imgix.net/~text?txtsize=56&bg=92c952&txt=600%C3%97600&w=600&h=600");
+					Image image = new Image("http://placehold.it/600/771796");
 					ImageView imgView = new ImageView(image);
 					sp.getChildren().add(imgView);
 			   
@@ -93,6 +98,18 @@ public class Main extends Application {
         root.getChildren().add(btn);
         primaryStage.setScene(new Scene(root, 300, 250));
         primaryStage.show();
+	}
+	
+	public static Image convertToJavaFXImage(byte[] raw) {
+        WritableImage image = new WritableImage(100, 100);
+        try {
+        	ByteArrayInputStream bis = new ByteArrayInputStream(raw);
+        	BufferedImage read = ImageIO.read(bis);
+            image = SwingFXUtils.toFXImage(read, null);
+        } catch (IOException ex) {
+            //Logger.getLogger(Photo.class.getUrl()).log(Level.SEVERE, null, ex);
+        }
+        return image;
 	}
 	
 	 public void reportAndLogException(final Throwable t)

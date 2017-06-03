@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="/Users/amandahinchman/Documents/workspace/LeanTechnique/java-json.jar"/>
 	<classpathentry kind="lib" path="/Users/amandahinchman/Documents/workspace/LeanTechnique/gson-master"/>
 	<classpathentry kind="lib" path="/Users/amandahinchman/Documents/workspace/LeanTechnique/gson-master/gson/target/gson-2.8.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/Users/amandahinchman/Documents/workspace/tool-url-expander"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
