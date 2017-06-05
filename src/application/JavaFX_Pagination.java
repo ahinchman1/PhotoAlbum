@@ -1,8 +1,10 @@
 package application;
 
 import java.io.BufferedReader;
+
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -21,23 +23,26 @@ import javafx.util.Callback;
 public class JavaFX_Pagination extends Application {
 
     String[] imageSource;
+    String[] title;
     private Pagination pagination;
-    final int numOfPage = 10; //MUST BE A NUMBER
+    final int numOfPage = 5000;
 
     public VBox createPage(int pageIndex) {
         VBox pageBox = new VBox();
         Label pageLabel = new Label("Page: " + (pageIndex+1));
+        Label pageLabel2 = new Label(title[pageIndex]);
         
         Image image = new Image(imageSource[pageIndex]);
 		
 		ImageView imgView = new ImageView(image);
 		
 		imgView.setX(100);
-		imgView.setY(25);
+		imgView.setY(50);
 		
 		pageBox.getChildren().add(imgView);
-		
         pageBox.getChildren().add(pageLabel);
+        pageBox.getChildren().add(pageLabel2);
+        
         return pageBox;
     }
 
@@ -53,12 +58,18 @@ public class JavaFX_Pagination extends Application {
 		String gsonJson = gson.toJson(photo);
 		System.out.println(gsonJson);
 	
-		// load urls on to images in javafx
+		// load urls
 		imageSource = new String[photo.length];
 		for (int i = 0; i < photo.length; i++) {
 			imageSource[i] = photo[i].getUrl();
 		}
-         
+		
+		// load titles
+        title = new String[photo.length];
+        for(int i = 0; i < photo.length; i++) {
+        	title[i] = photo[i].getTitle();
+        }
+		
 		System.out.println(imageSource[1]);
 		System.out.println(imageSource.length);
 		
@@ -77,7 +88,7 @@ public class JavaFX_Pagination extends Application {
         AnchorPane.setLeftAnchor(pagination, 10.0);
         anchor.getChildren().add(pagination);
 
-        Scene scene = new Scene(anchor, 400, 400);
+        Scene scene = new Scene(anchor, 320, 400);
 
         primaryStage.setScene(scene);
         primaryStage.show();
