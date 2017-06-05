@@ -1,31 +1,22 @@
 package application;
 	
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import com.google.gson.Gson;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 
 class Album {
@@ -38,6 +29,8 @@ class Album {
 }
 
 public class Main extends Application {
+	
+	String[] imageSource;
 	
 	/*
 	 * start() starts the javafx application, loads the data and displays
@@ -66,21 +59,29 @@ public class Main extends Application {
 					System.out.println(gsonJson);
 				
 					// load urls on to images in javafx
-					String[] imageSource = new String[photo.length];
+					imageSource = new String[photo.length];
 					for (int i = 0; i < photo.length; i++) {
 						imageSource[i] = photo[i].getUrl();
 					}
 			         
 					System.out.println(imageSource[1]);
 					
-					//display image
-					//display image
-					StackPane sp = new StackPane();
-					Image image = new Image("http://placehold.it/600/771796");
+					//openDirectoryChooser()
+			        
+					//display a 6 image gallery in new Scene}
+					Group root = new Group();
+					Scene scene = new Scene(root, 400, 400);
+					
+					Image image = new Image(imageSource[0]);
+					
 					ImageView imgView = new ImageView(image);
-					sp.getChildren().add(imgView);
-			   
-			        Scene scene = new Scene(sp);
+					
+					imgView.setX(50);
+					imgView.setY(25);
+					
+					root.getChildren().add(imgView);
+					
+					
 			        primaryStage.setScene(scene);
 			        primaryStage.show();
 					System.out.println("display image");
@@ -100,18 +101,6 @@ public class Main extends Application {
         primaryStage.show();
 	}
 	
-	public static Image convertToJavaFXImage(byte[] raw) {
-        WritableImage image = new WritableImage(100, 100);
-        try {
-        	ByteArrayInputStream bis = new ByteArrayInputStream(raw);
-        	BufferedImage read = ImageIO.read(bis);
-            image = SwingFXUtils.toFXImage(read, null);
-        } catch (IOException ex) {
-            //Logger.getLogger(Photo.class.getUrl()).log(Level.SEVERE, null, ex);
-        }
-        return image;
-	}
-	
 	 public void reportAndLogException(final Throwable t)
 	  {
 	    Platform.runLater(new Runnable() {
@@ -120,7 +109,7 @@ public class Main extends Application {
 	      }
 	    });
 	  }
-	
+	    
 	/**
 	 * loadData() reads the json file through Java API
 	 * @return String
