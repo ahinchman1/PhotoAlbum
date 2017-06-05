@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -20,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class JavaFX_Pagination extends Application {
+public class Main extends Application {
 
     String[] imageSource;
     String[] title;
