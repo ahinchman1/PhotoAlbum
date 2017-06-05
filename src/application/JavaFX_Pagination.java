@@ -27,6 +27,16 @@ public class JavaFX_Pagination extends Application {
     public VBox createPage(int pageIndex) {
         VBox pageBox = new VBox();
         Label pageLabel = new Label("Page: " + (pageIndex+1));
+        
+        Image image = new Image(imageSource[pageIndex]);
+		
+		ImageView imgView = new ImageView(image);
+		
+		imgView.setX(100);
+		imgView.setY(25);
+		
+		pageBox.getChildren().add(imgView);
+		
         pageBox.getChildren().add(pageLabel);
         return pageBox;
     }
@@ -50,6 +60,7 @@ public class JavaFX_Pagination extends Application {
 		}
          
 		System.out.println(imageSource[1]);
+		System.out.println(imageSource.length);
 		
         pagination = new Pagination(numOfPage);
         pagination.setPageFactory(new Callback<Integer, Node>() {
@@ -67,14 +78,6 @@ public class JavaFX_Pagination extends Application {
         anchor.getChildren().add(pagination);
 
         Scene scene = new Scene(anchor, 400, 400);
-        Image image = new Image(imageSource[0]);
-		
-		ImageView imgView = new ImageView(image);
-		
-		imgView.setX(50);
-		imgView.setY(25);
-		
-		anchor.getChildren().add(imgView);
 
         primaryStage.setScene(scene);
         primaryStage.show();
